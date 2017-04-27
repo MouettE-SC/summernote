@@ -198,14 +198,8 @@ define([
               click: function (e) {
                 var $button = $(e.currentTarget);
                 context.invoke('editor.color', {
-                  backColor: $button.attr('data-backColor'),
                   foreColor: $button.attr('data-foreColor')
                 });
-              },
-              callback: function ($button) {
-                var $recentColor = $button.find('.note-recent-color');
-                $recentColor.css('background-color', '#FFFF00');
-                $button.attr('data-backColor', '#FFFF00');
               }
             }),
             ui.button({
@@ -219,15 +213,6 @@ define([
             ui.dropdown({
               items: [
                 '<li>',
-                '<div class="btn-group">',
-                '  <div class="note-palette-title">' + lang.color.background + '</div>',
-                '  <div>',
-                '    <button type="button" class="note-color-reset btn btn-default" data-event="backColor" data-value="inherit">',
-                lang.color.transparent,
-                '    </button>',
-                '  </div>',
-                '  <div class="note-holder" data-event="backColor"/>',
-                '</div>',
                 '<div class="btn-group">',
                 '  <div class="note-palette-title">' + lang.color.foreground + '</div>',
                 '  <div>',
@@ -254,7 +239,7 @@ define([
                 var value = $button.data('value');
 
                 if (eventName && value) {
-                  var key = eventName === 'backColor' ? 'background-color' : 'color';
+                  var key = 'color';
                   var $color = $button.closest('.note-color').find('.note-recent-color');
                   var $currentButton = $button.closest('.note-color').find('.note-current-color-button');
 
