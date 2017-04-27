@@ -1,12 +1,12 @@
 /**
- * Super simple wysiwyg editor v0.8.3
+ * Super simple wysiwyg editor v0.8.3.eb1
  * http://summernote.org/
  *
  * summernote.js
  * Copyright 2013-2016 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2017-04-01T13:43Z
+ * Date: 2017-04-27T03:46Z
  */
 (function (factory) {
   /* global define */
@@ -3998,7 +3998,7 @@
     var commands = ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript',
                     'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull',
                     'formatBlock', 'removeFormat',
-                    'backColor', 'foreColor', 'fontName'];
+                    'foreColor', 'fontName'];
 
     for (var idx = 0, len = commands.length; idx < len; idx ++) {
       this[commands[idx]] = (function (sCmd) {
@@ -4395,14 +4395,11 @@
      *
      * @param {Object} sObjColor  color code
      * @param {String} sObjColor.foreColor foreground color
-     * @param {String} sObjColor.backColor background color
      */
     this.color = this.wrapCommand(function (colorInfo) {
       var foreColor = colorInfo.foreColor;
-      var backColor = colorInfo.backColor;
 
       if (foreColor) { document.execCommand('foreColor', false, foreColor); }
-      if (backColor) { document.execCommand('backColor', false, backColor); }
     });
 
     /**
@@ -5327,14 +5324,8 @@
               click: function (e) {
                 var $button = $(e.currentTarget);
                 context.invoke('editor.color', {
-                  backColor: $button.attr('data-backColor'),
                   foreColor: $button.attr('data-foreColor')
                 });
-              },
-              callback: function ($button) {
-                var $recentColor = $button.find('.note-recent-color');
-                $recentColor.css('background-color', '#FFFF00');
-                $button.attr('data-backColor', '#FFFF00');
               }
             }),
             ui.button({
@@ -5348,15 +5339,6 @@
             ui.dropdown({
               items: [
                 '<li>',
-                '<div class="btn-group">',
-                '  <div class="note-palette-title">' + lang.color.background + '</div>',
-                '  <div>',
-                '    <button type="button" class="note-color-reset btn btn-default" data-event="backColor" data-value="inherit">',
-                lang.color.transparent,
-                '    </button>',
-                '  </div>',
-                '  <div class="note-holder" data-event="backColor"/>',
-                '</div>',
                 '<div class="btn-group">',
                 '  <div class="note-palette-title">' + lang.color.foreground + '</div>',
                 '  <div>',
@@ -5383,7 +5365,7 @@
                 var value = $button.data('value');
 
                 if (eventName && value) {
-                  var key = eventName === 'backColor' ? 'background-color' : 'color';
+                  var key = 'color';
                   var $color = $button.closest('.note-color').find('.note-recent-color');
                   var $currentButton = $button.closest('.note-color').find('.note-current-color-button');
 
@@ -6464,7 +6446,7 @@
 
       var body = [
         '<p class="text-center">',
-        '<a href="http://summernote.org/" target="_blank">Summernote 0.8.3</a> · ',
+        '<a href="http://summernote.org/" target="_blank">Summernote 0.8.3.eb1</a> · ',
         '<a href="https://github.com/summernote/summernote" target="_blank">Project</a> · ',
         '<a href="https://github.com/summernote/summernote/issues" target="_blank">Issues</a>',
         '</p>'
@@ -6809,7 +6791,7 @@
 
 
   $.summernote = $.extend($.summernote, {
-    version: '0.8.3',
+    version: '0.8.3.eb1',
     ui: ui,
     dom: dom,
 
