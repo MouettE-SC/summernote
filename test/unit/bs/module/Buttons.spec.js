@@ -184,17 +184,6 @@ define([
       });
     });
 
-    describe('recent color button', function () {
-      it('should execute color command when it is clicked', function () {
-        range.createFromNode($editable.find('p')[0]).normalize().select();
-
-        $toolbar.find('.note-current-color-button').click();
-
-        var $span = $editable.find('span');
-        expect($span).to.be.equalsStyle('#FFFF00', 'background-color');
-      });
-    });
-
     describe('fore color button', function () {
       it('should execute fore color command when it is clicked', function () {
         range.createFromNode($editable.find('p')[0]).normalize().select();
@@ -204,18 +193,6 @@ define([
 
         var $span = $editable.find('span');
         expect($span).to.be.equalsStyle('#FF9C00', 'color');
-      });
-    });
-
-    describe('back color button', function () {
-      it('should execute back color command when it is clicked', function () {
-        range.createFromNode($editable.find('p')[0]).normalize().select();
-
-        var $button = $toolbar.find('[data-event=backColor]').eq(10);
-        $button.click();
-
-        var $span = $editable.find('span');
-        expect($span).to.be.equalsStyle($button.data('value'), 'background-color');
       });
     });
 
