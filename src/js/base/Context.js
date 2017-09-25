@@ -107,6 +107,7 @@ define([
     this.enable = function () {
       this.layoutInfo.editable.attr('contenteditable', true);
       this.invoke('toolbar.activate', true);
+      this.triggerEvent('disable', false);
     };
 
     this.disable = function () {
@@ -116,6 +117,8 @@ define([
       }
       this.layoutInfo.editable.attr('contenteditable', false);
       this.invoke('toolbar.deactivate', true);
+
+      this.triggerEvent('disable', true);
     };
 
     this.triggerEvent = function () {
@@ -189,10 +192,21 @@ define([
       delete this.memos[key];
     };
 
+    /**
+     *Some buttons need to change their visual style immediately once they get pressed
+     */
+    this.createInvokeHandlerAndUpdateState = function (namespace, value) {
+      return function (event) {
+        self.createInvokeHandler(namespace, value)(event);
+        self.invoke('buttons.updateCurrentStyle');
+      };
+    };
+
     this.createInvokeHandler = function (namespace, value) {
       return function (event) {
         event.preventDefault();
-        self.invoke(namespace, value || $(event.target).closest('[data-value]').data('value'));
+        var $target = $(event.target);
+        self.invoke(namespace, value || $target.closest('[data-value]').data('value'), $target);
       };
     };
 
